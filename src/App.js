@@ -82,7 +82,21 @@ function App() {
     setListItem(listItems)
   }
 
-  console.log("listItems", listItems)
+  
+  const onEnterClick = (e, flag) => {
+
+    if (e.key === 'Enter') {
+      if (flag == "Other") {
+        setOther(true)
+        setselectOther(false)
+      } else {
+        setyesnoOther(true)
+        setselectyesnoOther(false)
+      }
+      let item = e.target.value
+      listSetProps(item, flag, "single")
+    }
+  }
   return (
 
     <div className="App">
@@ -129,7 +143,7 @@ function App() {
           {showother && <ul className='list--tags' onClick={(e) => otherSelectShow(false)} >{listItems.Other && listItems.Other.map((item, i) =>
             (<li key={i}>{item}</li>)
           )}</ul>}
-          {selectOther && <input value="" name="otherselect" placeholder='Notes'></input>}
+          {selectOther && <input onKeyDown={(e) => onEnterClick(e, "Other")} name="otherselect" placeholder='Notes'></input>}
         </div>
       </div>
 
@@ -149,7 +163,7 @@ function App() {
           {showyesnoother && <ul className='list--tags' onClick={(e) => otherSelectyesnoShow(false)} >{listItems.YesNo && listItems.YesNo.map((item, i) =>
             (<li key={i}>{item}</li>)
           )}</ul>}
-          {selectyesnoOther && <input value="" name="otherselect" placeholder='Notes'></input>}
+          {selectyesnoOther && <input onKeyDown={(e) => onEnterClick(e, "YesNo")} name="otherselect" placeholder='Notes'></input>}
         </div>}
         
       </div>
